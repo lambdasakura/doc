@@ -1,19 +1,19 @@
-#+TITLE: libsvm‚Ìsvm_train‚ğ“Ç‚Ş
+#+TITLE: libsvmã®svm_trainã‚’èª­ã‚€
 
-* Às‚µ‚½ƒRƒ}ƒ“ƒh
+* å®Ÿè¡Œã—ãŸã‚³ãƒãƒ³ãƒ‰
  r -s 0 -c 5 -t 2 -g 0.5 -e 0.1 ./heart_scale
 
 * main
-ƒƒCƒ“ŠÖ”‚Å‚â‚Á‚Ä‚é‚±‚Æ
-ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“‚ğ‰ğÍ‚·‚é
+ãƒ¡ã‚¤ãƒ³é–¢æ•°ã§ã‚„ã£ã¦ã‚‹ã“ã¨
+ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ã‚’è§£æã™ã‚‹
 
-* parse_command_line‚ğÀs
-parse_command_line‚Å‚ÍˆÈ‰º‚ÌƒR[ƒh‚ğÀs
-ƒOƒ[ƒoƒ‹•Ï”‚Ì
-svm_parameter param‚ÉƒfƒtƒHƒ‹ƒg‚Ì’l‚ğİ’è‚·‚éB
-svm_parameter‚Ì’†g‚ÍSVM‚ÌÀs‚É•K—v‚Èƒpƒ‰ƒ[ƒ^‚ªŠi”[‚³‚ê‚é
+* parse_command_lineã‚’å®Ÿè¡Œ
+parse_command_lineã§ã¯ä»¥ä¸‹ã®ã‚³ãƒ¼ãƒ‰ã‚’å®Ÿè¡Œ
+ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°ã®
+svm_parameter paramã«ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤ã‚’è¨­å®šã™ã‚‹ã€‚
+svm_parameterã®ä¸­èº«ã¯SVMã®å®Ÿè¡Œã«å¿…è¦ãªãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãŒæ ¼ç´ã•ã‚Œã‚‹
 
-param‚Ì’†g
+paramã®ä¸­èº«
 {svm_type = 0,
  kernel_type = 2,
  degree = 3,
@@ -30,12 +30,12 @@ param‚Ì’†g
  shrinking = 1,
  probability = 0}
 
-read_problem‚Åprob‚Ì‰Šú‰»‚ğÀ{
+read_problemã§probã®åˆæœŸåŒ–ã‚’å®Ÿæ–½
 
 struct svm_problem prob;
 wc -l heart_scale : 270
 
-prob‚Ì’†g
+probã®ä¸­èº«
  {l = 270,
   y = 0x35920,
   x = 0x361a8}
@@ -43,8 +43,8 @@ prob‚Ì’†g
 (*(*prob.x) + ?)
 (gdb) p *((*prob.x)+1)
 $33 = {index = 2, value = 1}
-‚Æ‚©“ü‚Á‚Ä‚é
-‚±‚ê‚Í
+ã¨ã‹å…¥ã£ã¦ã‚‹
+ã“ã‚Œã¯
 svm_node 
 struct svm_node
 {
@@ -54,16 +54,16 @@ struct svm_node
 
 
 
-svm_train‚É“ü‚é
-else‚É“ü‚éB
+svm_trainã«å…¥ã‚‹
+elseã«å…¥ã‚‹ã€‚
 
-svm_group_classes‚ğÀs
+svm_group_classesã‚’å®Ÿè¡Œ
 
 
-‚È‚ñ‚¾‚©‚ñ‚¾‚Å
+ãªã‚“ã ã‹ã‚“ã ã§
 Kernel::Kernel
 
-ˆø”
+å¼•æ•°
 kernel_type = RBF
 
 
