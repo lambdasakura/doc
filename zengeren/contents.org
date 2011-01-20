@@ -1,5 +1,7 @@
-#+TITLE 全ゲ連で話す事
-
+#+TITLE: 全ゲ連で話す事
+#+AUTHOR: さくらんぼ
+#+EMAIL:lambda.sakura@gmail.com
+#+DATE:2011/02/12
 * 目標
 ** ゲーム開発にLispが適しているのを実感してほしい
 
@@ -43,6 +45,7 @@ wikipediaより
    - 代入ない
    - 逐次実行がない
 - 型チェックがない    
+- Emacs?
 
 ** Common Lispの実際
 
