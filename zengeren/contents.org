@@ -47,7 +47,9 @@ wikipediaより
 - 型チェックがない    
 - Emacs?
 
-** Common Lispの実際
+** Common Lisp？
+
+- Common Lispの実際
 
 
 ** 言語の特徴おさらい
@@ -92,4 +94,8 @@ C++のSTLとLispとRubyで比較してみた。
 ** 目指したい流れ
 ** DSL構築
 LispだとDSLがうんぬん
+
+* 苦労する点
+
+* まとめ
 
