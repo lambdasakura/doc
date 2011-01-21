@@ -2,10 +2,25 @@
 #+AUTHOR: さくらんぼ
 #+EMAIL:lambda.sakura@gmail.com
 #+DATE:2011/02/12
-* 目標
-** ゲーム開発にLispが適しているのを実感してほしい
+
+
+* 今日の目標
+ + ゲーム開発にLispが適しているのを実感してほしい
+#+BEGIN_VERSE
+hoge
+#+END_VERSE
+
+
+Everything should be made as simple as possible,
+but not any simpler -- Albert Einstein
+
+
+#+BEGIN_EXAMPLE
+hogehgoe
+#+END_EXAMPLE
 
 * Lispのゲーム開発環境にて達成したい目標
+
 ** コーディングが楽
 
 - ゲームで利用する様なデータ構造は言語で提供していてほしい。
@@ -23,16 +38,32 @@
 
 ** Lispって何だっけ？
 
+#+BEGIN_QUOTE
  LISP（リスプ、LISt Processingの略）は、プログラミング言語の一種である。括弧を多用する独特の構文を持つ。
  LISPは比較的容易に実装できるため、非常に多くの方言が存在する。
  関数型言語に分類されるが、ほとんどのLISP方言は、変数への束縛だけでなく、代入やデータ構造の破壊的操作も可能という、手続き型言語の性格ももっている。
+--- wikipediaより
+#+END_QUOTE
+
+
+
+
+** Lispの特徴
+
+#+BEGIN_QUOTE
  LISP の特徴として以下のようなものがある。
-- 動的な型付け（値には型情報を持つが変数は型を持たない）
-- 前置記法
+#+END_QUOTE
+
+-  動的な型付け（値には型情報を持つが変数は型を持たない）
+-  前置記法
+
+
+#+BEGIN_QUOTE
  コード自身を第一級（ファーストクラス）オブジェクトとして扱うことができる
  LISPは、全てのプログラミング言語の中でも2番目に古い高級言語であり、現在でも広く使われている。ただし、最古の高級言語FORTRANと同様に、言語仕様は初期と比べて大きく変化している。
+--- wikipediaより
+#+END_QUOTE
 
-wikipediaより
 
 ** つまり
 
@@ -98,4 +129,7 @@ LispだとDSLがうんぬん
 * 苦労する点
 
 * まとめ
+
+
+=hoge=
 
