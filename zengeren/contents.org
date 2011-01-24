@@ -3,22 +3,26 @@
 #+EMAIL:lambda.sakura@gmail.com
 #+DATE:2011/02/12
 
+* 自己紹介
 
-* 今日の目標
- + ゲーム開発にLispが適しているのを実感してほしい
-#+BEGIN_VERSE
-hoge
-#+END_VERSE
+- 名前
+  - さくらんぼ
+  - lambda_sakura
+  - 卑猥乙
+
+- 所属:さくらんぼ亭
+  - 一応代表
+  - ドット、絵、プログラム担当(最近はドット、絵はやってない)
+  
+
+* 本日のテーマ
+
+ゲーム開発とLisp
+
+* Why Lisp ?
 
 
-Everything should be made as simple as possible,
-but not any simpler -- Albert Einstein
-
-
-#+BEGIN_EXAMPLE
-hogehgoe
-#+END_EXAMPLE
-
+  
 * Lispのゲーム開発環境にて達成したい目標
 
 ** コーディングが楽
@@ -131,5 +135,4 @@ LispだとDSLがうんぬん
 * まとめ
 
 
-=hoge=
 
