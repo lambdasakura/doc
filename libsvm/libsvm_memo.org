@@ -13,7 +13,7 @@ parse_command_lineでは以下のコードを実行
 svm_parameter paramにデフォルトの値を設定する。
 svm_parameterの中身はSVMの実行に必要なパラメータが格納される
 
-paramの中身
+** paramの中身
 {svm_type = 0,
  kernel_type = 2,
  degree = 3,
@@ -22,9 +22,9 @@ paramの中身
  cache_size = 100,
  eps = 0.10000000000000001,
  C = 5,
- nr_weight = 0,
- weight_label = 0x0,
- weight = 0x0,
+ nr_weight = 0,//重みの数
+ weight_label = 0x0,//重みを付けるラベル
+ weight = 0x0,//ラベルに対応する実際の重み
  nu = 0.5,
  p = 0.10000000000000001,
  shrinking = 1,
@@ -35,7 +35,7 @@ read_problemでprobの初期化を実施
 struct svm_problem prob;
 wc -l heart_scale : 270
 
-probの中身
+** probの中身
  {l = 270,
   y = 0x35920,
   x = 0x361a8}
@@ -53,17 +53,116 @@ struct svm_node
 };
 
 
-
+* svm_train
+  
 svm_trainに入る
-elseに入る。
+この実行の場合にはelseに入る。
 
+** group training data of the same classs
 svm_group_classesを実行
+start 各値の先頭
+count 各値の数
+perm 各値のインデックス
+label 各値のlabel
+にそれぞれ値が格納される
+
+svm_node **xにpermの値を代入する
+これで、xには小さいもの順にデータが格納される
+
+** calculate weighted C
+
+label:nr_classごとのラベル情報
+weighted_C:labelに対応する重み
+
+クラスに応じて重みを用意
+標準の値はpram->C(値:5)です
+
+以下の手順で重みを決定している
+
+for 引数でもらっている重み全て
+ if その重みに対応するラベルと一致するものがデータの中に存在する
+  ラベルに対応したweighted_Cの値に重みを掛ける。
+
+** train k*(k-1)/2 models
+decision_functionをnr_class * (nr_class - 1) / 2 個
+用意する。
+
+sub_probを作って色々開始
+sub_probは以下の手順で作られる
+
+#+BEGIN_EXAMPLE
+特定のクラスに属するデータ全部 + 別の特定のクラスに属するデータ全部
+#+END_EXAMPLE
+
+注意として、元々のラベルの情報は利用せずに
+片方を1片方を-1としておく。
+
+上記問題から
+f[p]を計算で出す。
+
+* svm_train_one
+引数には、上記で作ったsub_prob、プログラムの引数(param)、各クラスに対応する重み、
+
+alphaの領域を確保
+   
+Solver::SolutionInfoを作る
+	struct SolutionInfo {
+		double obj;
+		double rho;
+		double upper_bound_p;
+		double upper_bound_n;
+		double r;	// for Solver_NU
+	};
+
+* solve_c_svc
+この関数はalpha、Solver::SolutionInfo siを計算するようだ。
+
+初期化
+ - alphaの初期値は0
+ - minus_onesの初期値は-1
+ - yはprob->yの値が正か負かの判断結果
+   ただしsub_probの場合すでに-1、1どちらかになってるはず。
+
+Solveの引数でSVC_Qが呼ばれている
+SVC_Qはクラス。
+
+* SVC_Qについて
+// 
+class QMatrix {
+public:
+	virtual Qfloat *get_Q(int column, int len) const = 0;
+	virtual double *get_QD() const = 0;
+	virtual void swap_index(int i, int j) const = 0;
+	virtual ~QMatrix() {}
+};
 
 
-なんだかんだで
-Kernel::Kernel
+// Kernel evaluation
+
+- k_functionはsingle kernel evaluationらしい。
+- コンストラクタでは、l*lのカーネル行列計算の準備を行なう
+- get_QはQMatrixから1列取得する
+
+Kernelが親クラス
+Kernelの親クラスはQMatrix
+
+
+
 
 引数
 kernel_type = RBF
 
+kernel_functionはKernel::kernel_rbfに決定
 
+kernel_rbfは
+exp(-gamma*(x_square[i]+x_square[j]-2*dot(x[i],x[j])));
+です。
+
+これとは別にk_functionがある。
+k_functionの定義は
+
+各項の距離を補完し、足しあわせたものをsumとして以下の式で求める
+それをexp(-param.gamma * sum);
+
+k_functionが利用されているのは、svm_predict_valuesだけである。
+今回の範囲で読むかは不明。
