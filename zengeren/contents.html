@@ -1,526 +1,190 @@
-
-<!DOCTYPE html>
-<!--
-  Copyright 2010 Google Inc.
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-
-  Original slides: Marcin Wichary (mwichary@google.com)
-  Modifications: Ernest Delgado (ernestd@google.com)
-                 Alex Russell (slightlyoff@chromium.org)
-                 Brad Neuberg
--->
-<html manifest="/html5/src/slides_manifest.php">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <title>HTML5 presentation</title>
-
-    <!--
-    <script src="http://www.google.com/jsapi?key=ABQIAAAAciAr-YcJOX4sVbBQF5yFOBRI2zyDwyJhdEdO9xa_t4eLz9AjchSe2DA_dgZ-3Akmxq1pd4ElyBEStA"></script>
-    <script>google.load("maps", "2");</script>
-      -->
-
-    <!-- <link type="text/css" href="./src/scrollbar.css" rel="stylesheet"> -->
-
-    <style>
-      .notes { display: none; }
-      .stroke {
-        -webkit-text-stroke-color: red;
-        -webkit-text-stroke-width: 1px;
-        -moz-text-stroke-color: red;
-        -moz-text-stroke-width: 1px;
-      }
-
-      body {
-        font: 14px "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
-        background: #778;
-        padding: 0;
-        margin: 0;
-        overflow: hidden;
-      }
-
-      div.presentation {
-        position: absolute;
-        width: 100%;
-        display: table-cell;
-        vertical-align: middle;
-        height: 100%;
-        background: inherit;
-      }
-
-      div.slides {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        left: 0;
-        top: 0;
-        position: absolute;
-        display: block;
-        -webkit-transition: -webkit-transform 1s ease-in-out;
-        -moz-transition: -moz-transform 1s ease-in-out;
-        -o-transition: -o-transform 1s ease-in-out;
-      }
-
-      div.slide {
-        display: none;
-        position: absolute;
-        overflow: hidden;
-        width: 900px;
-        height: 700px;
-        left: 50%;
-        top: 50%;
-        margin-top: -350px;
-        background: -webkit-gradient(linear, left bottom, left top, from(#bbd), to(#fff));
-        -webkit-transition: margin 0.25s ease-in-out;
-        background-color: #eee;
-        background: -moz-linear-gradient(bottom, #bbd, #fff);
-        -moz-transition: margin 0.25s ease-in-out;
-        -o-transition: margin 0.25s ease-in-out;
-      }
-
-      div.slide:nth-child(even) {
-        border-top-left-radius: 20px;
-        -moz-border-radius-topleft: 20px;
-        -webkit-border-top-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-        -moz-border-radius-bottomright: 20px;
-        -webkit-border-bottom-right-radius: 20px;
-      }
-
-      div.slide:nth-child(odd) {
-        border-top-right-radius: 20px;
-        -moz-border-radius-topright: 20px;
-        -webkit-border-top-right-radius: 20px;
-        border-bottom-left-radius: 20px;
-        -moz-border-radius-bottomleft: 20px;
-        -webkit-border-bottom-left-radius: 20px;
-      }
-
-      div.slide p {
-        font-size: 30px;
-      }
-
-      section.intro p {
-        font-size: 35px;
-      }
-
-      button {
-        font-size: 20px;
-      }
-
-      .summary {
-       font-size: 30px;
-      }
-
-      .sub-summary {
-       font-size: 25px;
-      }
-
-      .sub-summary li {
-       padding: 5px 0;
-      }
-
-      .bullets {
-       font-size: 40px;
-      }
-
-      .slide.far-past {
-        display: block;
-        margin-left: -2400px;
-      }
-
-      .slide.past {
-        display: block;
-        margin-left: -1400px;
-      }
-
-      .slide.current {
-        display: block;
-        margin-left: -450px;
-      }
-
-      .slide.future {
-        display: block;
-        margin-left: 500px;
-      }
-
-      .slide.far-future {
-        display: block;
-        margin-left: 1500px;
-      }
-
-      body.three-d div.presentation {
-        /*background: -webkit-gradient(radial, 50% 50%, 10, 50% 50%, 1000, from(#333), to(#000));        */
-      }
-
-      body.three-d div.slides {
-        -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
-        -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
-        -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
-      }
-
-
-      /* Content */
-
-      @font-face { font-family: 'Junction'; src: url(src/Junction02.otf); }
-      @font-face { font-family: 'LeagueGothic'; src: url(src/LeagueGothic.otf); }
-
-      header {
-        font-family: 'Junction';
-        font-weight: normal;
-        font-size: 50px;
-        letter-spacing: -.05em;
-        color: white;
-        color: black;
-        text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
-        position: absolute;
-        left: 30px;
-        top: 25px;
-        margin: 0;
-        padding: 0;
-      }
-
-      .intro h1 {
-        color: black;
-        padding: 0;
-        margin: 0;
-        letter-spacing: -2px;
-        font-size: 96px;
-      }
-
-      .intro h2 {
-        color: black;
-        font-family: 'LeagueGothic';
-        padding: 0;
-        margin: 0;
-        margin-top: -5px;
-        font-size: 68px;
-        letter-spacing: -1px;
-      }
-
-      h1 {
-        display: inline;
-        font-size: 100%;
-        font-weight: normal;
-        padding: 0;
-        margin: 0;
-      }
-
-      h2 {
-        font-family: 'Junction';
-        color: black;
-        font-size: 20px;
-        margin-left: 20px;
-        margin-top: 50px;
-      }
-
-      h2:first-child {
-        margin-top: 0;
-      }
-
-      section {
-        font-family: 'Junction';
-        font-size: 50px;
-        color: #3f3f3f;
-        text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
-        margin-left: 30px;
-        margin-right: 30px;
-        margin-top: 100px;
-        display: block;
-        overflow: hidden;
-      }
-
-      section.no-heading {
-        margin-top: 20px;
-      }
-
-      a {
-        color: inherit;
-        display: inline-block;
-        text-decoration: none;
-        line-height: 110%;
-        border-bottom: 2px solid #3f3f3f;
-      }
-
-      #wmap a {
-        line-height: 100%;
-        border-bottom: none;
-      }
-
-      section.left {
-        float: left;
-        width: 390px;
-      }
-
-      section.small {
-        font-size: 24px;
-      }
-
-      section.small ul {
-        margin: 0 0 0 15px;
-        padding: 0;
-      }
-
-      section.small li {
-        padding-bottom: 0;
-      }
-
-      h2 {
-        padding: 0;
-        margin: 15px 0 5px 0;
-/*        font-family: GG240;*/
-      }
-
-      section.center {
-        line-height: 180%;
-        text-align: center;
-        display: table-cell;
-        vertical-align: middle;
-        height: 700px;
-        width: 900px;
-      }
-
-      pre {
-        text-align: left;
-        font-size: 16px;
-        font-family: Monaco, Courier;
-        padding-bottom: 10px;
-
-        padding: 10px 20px;
-        background: rgba(255, 0, 0, 0.05);
-        border-radius: 8px;
-        border: 1px solid rgba(255, 0, 0, 0.2);
-      }
-      .two-column {
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
-      }
-
-      pre select {
-        font-size: 16px;
-        font-family: Monaco, Courier;
-        border: 1px solid #c61800;
-      }
-
-      input {
-        font-size: 16px;
-        font-family: Helvetica;
-        padding: 3px;
-      }
-      input[type="range"] {
-        width: 100%;
-      }
-
-      button {
-        font-family: Verdana;
-      }
-
-      button.large {
-        font-size: 32px;
-      }
-
-      pre b {
-        font-weight: normal;
-        color: #c61800;
-        text-shadow: #c61800 0 0 1px;
-        /*letter-spacing: -1px;*/
-      }
-      pre em {
-        font-weight: normal;
-        font-style: normal;
-        color: #18a600;
-        text-shadow: #18a600 0 0 1px;
-      }
-      pre input[type="range"] {
-        height: 6px;
-        cursor: pointer;
-        width: auto;
-      }
-      example {
-        font-size: 16px;
-        display: block;
-        padding: 10px 20px;
-        color: black;
-        background: rgba(255, 255, 255, 0.4);
-        border-radius: 8px;
-        margin-bottom: 10px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-      }
-      video {
-        border-radius: 8px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-      }
-
-      .css,
-      .js,
-      .html,
-      .key {
-        font-family: 'Junction';
-        color: black;
-        display: inline-block;
-        padding: 6px 10px 3px 10px;
-        font-size: 25px;
-        line-height: 30px;
-        text-shadow: none;
-        letter-spacing: 0;
-        bottom: 10px;
-        position: relative;
-        border-radius: 10px;
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        background: white;
-        box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
-        -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
-        -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
-      }
-
-      .key { font-family: Arial; }
-
-      :not(header) > .css,
-      :not(header) > .js,
-      :not(header) > .html,
-      :not(header) > .key {
-        margin: 0 5px;
-        bottom: 4px;
-      }
-
-      .css {
-        background: -webkit-gradient(linear, left top, left bottom, from(#ff4), to(#ffa));
-        background-color: #ff4;
-        background: -moz-linear-gradient(left top, #ff4, #ffa);
-      }
-      .js {
-        background: -webkit-gradient(linear, left top, left bottom, from(#4f4), to(#afa));
-        background-color: #4f4;
-        background: -moz-linear-gradient(left top, #4f4, #afa);
-      }
-      .html {
-        background: -webkit-gradient(linear, left top, left bottom, from(#e88), to(#fee));
-        background-color: #e88;
-        background: -moz-linear-gradient(left top, #e88, #fee);
-      }
-
-      li {
-        list-style: none;
-        padding: 10px 0;
-      }
-
-      .summary li::before, .sub-summary li::before, .bullets li::before {
-        content: '· ';
-      }
-
-      info {
-        display: block;
-        font-size: 50%;
-        text-align: center;
-      }
-
-    </style>
-  </head><body>
-    <div class="presentation"><div class="slides">
-<div class="slide">
-  <section class="center intro">
-    <style>
-      span.strike { text-decoration:line-through;}
-    </style>
-    <h2>
-      全ゲ連で話す事
-    </h2>
-    <p style="margin-top:100px">
-      さくらんぼ
-    </p>
-    <p style="font-size: 25px; line-height: 180%;">Press <span class="key">&rarr;</span> key to advance.<br />
-    Zoom in/out: <span class="key">Ctrl or Command</span> + <span class="key">+/-</span></p>
-  </section>
+<title>全ゲ連で話す事</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011/02/12"/>
+<meta name="author" content="さくらんぼ"/>
+<style type="text/css">
+  html {
+	font-family: Times, serif;
+	font-size: 12pt;
+  }
+  .title { text-align: center; }
+  .todo  { color: red; }
+  .done { color: green; }
+  .timestamp { color: grey }
+  .timestamp-kwd { color: CadetBlue }
+  .tag { background-color:lightblue; font-weight:normal }
+  .target { background-color: lavender; }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+  }
+  table { border-collapse: collapse; }
+  td, th {
+	vertical-align: top;
+	<!--border: 1pt solid #ADB9CC;-->
+  }
+</style>
+</head><body>
+<h1 class="title">全ゲ連で話す事</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a href="#sec-1">1 自己紹介</a></li>
+<li><a href="#sec-2">2 本日のテーマ</a></li>
+<li><a href="#sec-3">3 2010年のさくらんぼ亭の課題</a></li>
+<li><a href="#sec-4">4 問題解決に向けて</a>
+<ul>
+<li><a href="#sec-5">4.1 コーディングの効率化</a></li>
+<li><a href="#sec-6">4.2 速度</a></li>
+<li><a href="#sec-7">4.3 作業者が簡単に作業結果を確認できる環境</a></li>
+</ul>
+</li>
+<li><a href="#sec-8">5 さくらんぼ亭の結論</a></li>
+<li><a href="#sec-9">6 その前に</a>
+<ul>
+<li><a href="#sec-10">6.1 Lispって何だっけ？</a></li>
+<li><a href="#sec-11">6.2 Lispの特徴</a></li>
+<li><a href="#sec-12">6.3 良くある誤解</a></li>
+<li><a href="#sec-13">6.4 Common Lisp？</a></li>
+<li><a href="#sec-14">6.5 言語の特徴おさらい</a></li>
+</ul>
+</li>
+<li><a href="#sec-15">7 Lispでのゲーム開発</a>
+<ul>
+<li><a href="#sec-16">7.1 環境について  </a>
+<ul>
+<li><a href="#sec-17">7.1.1 quicklisp</a></li>
+<li><a href="#sec-18">7.1.2 lispbuilder-sdl</a></li>
+<li><a href="#sec-19">7.1.3 emacs + slime</a></li>
+</ul>
+</li>
+<li><a href="#sec-20">7.2 コーディングについて</a>
+<ul>
+<li><a href="#sec-21">7.2.1 ゲームに使う道具</a></li>
+<li><a href="#sec-22">7.2.2 関数がオブジェクト</a></li>
+<li><a href="#sec-23">7.2.3 コンパイル不要(動的ロード)</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-24">8 Lispの速度について</a>
+<ul>
+<li><a href="#sec-25">8.1 遅いの？</a></li>
+</ul>
+</li>
+<li><a href="#sec-26">9 他の作業者が簡単に作業結果を確認できる環境</a>
+<ul>
+<li><a href="#sec-27">9.1 複数人開発の課題</a></li>
+<li><a href="#sec-28">9.2 目指したい流れ</a></li>
+<li><a href="#sec-29">9.3 DSL構築</a></li>
+</ul>
+</li>
+<li><a href="#sec-30">10 苦労する点</a></li>
+<li><a href="#sec-31">11 まとめ</a></li>
+</ul>
 </div>
 
-<div class="slide">
-<header><h1>自己紹介 </h1></header>
+<div class="outline-2">
+<h2 id="sec-1">1 自己紹介</h2>
 
-<section>
 
-<ul class="summary">
+<ul>
 <li>
 名前
-<ul class="summary">
+<ul>
 <li>
 さくらんぼ
 </li>
 <li>
-lambda<sub>sakura</sub>
+lambda_sakura
 </li>
 <li>
 卑猥乙
 
 </li>
-</ul>
-</li>
+</ul></li>
 <li>
 所属:さくらんぼ亭
-<ul class="summary">
+<ul>
 <li>
 一応代表
 </li>
 <li>
 ドット、絵、プログラム担当(最近はドット、絵はやってない)
 
+
 </li>
-</ul>
-</li>
-</ul>
-</section>
+</ul></li>
+</ul></div>
 
-</div>
+<div class="outline-2">
+<h2 id="sec-2">2 本日のテーマ</h2>
 
-<div class="slide">
-<header><h1>本日のテーマ </h1></header>
-
-<section>
 
 <p>
 ゲーム開発とLisp
 </p>
-</section>
+<ul>
+<li>
+なんでLispでゲーム開発したの？
+</li>
+<li>
+Lispでゲーム開発なんてできるの？
+</li>
+<li>
+Lispでゲーム開発するとどうなるの？
 
-</div>
+</li>
+</ul>
+<p>既にゲーム開発をしている人向けの講座
+</p><ul>
+<li>
+LL、組み込み言語、DSLとか興味ある人に是非聞いて欲しい
 
-<div class="slide">
-<header><h1>Why Lisp ? </h1></header>
+</li>
+</ul></div>
 
-<section>
-
-
-
-</section>
-
-</div>
-
-<div class="slide">
-<header><h1>Lispのゲーム開発環境にて達成したい目標 </h1></header>
-
-<section>
+<div class="outline-2">
+<h2 id="sec-3">3 2010年のさくらんぼ亭の課題</h2>
 
 
-</div>
+<ul>
+<li>
+時間ない！
 
-<div class="slide">
-<header><h1>コーディングが楽 </h1></header>
+<p>
+開発者の多くが社会人になったため開発時間が短くなった。C/C++の開発ではバッドノウハウとかが多すぎてつらい。
+</p>
+</li>
+<li>
+メンバと作業時間帯が合わない！
 
-<section>
+<p>
+メンバが作業しても結果がゲームに反映されるまでにタイムラグが発生する。
+開発メンバがコンパイル環境を整備するか、プログラマがコンパイルして再配布する手間がかかる。
+たとえ、コンパイル作業自体を自動化することは出来ても、結局プログラマが居ないとゲームの更新が出来ない。
+</p>
 
-<ul class="summary">
+</li>
+</ul></div>
+
+<div class="outline-2">
+<h2 id="sec-4">4 問題解決に向けて</h2>
+
+
+
+<div class="outline-3">
+<h3 id="sec-5">4.1 コーディングの効率化</h3>
+
+
+<ul>
 <li>
 ゲームで利用する様なデータ構造は言語で提供していてほしい。
 </li>
@@ -531,30 +195,22 @@ lambda<sub>sakura</sub>
 コーディングする上のバッドノウハウを減らす
 
 </li>
-</ul>
-</section>
+</ul></div>
 
-</div>
+<div class="outline-3">
+<h3 id="sec-6">4.2 速度</h3>
 
-<div class="slide">
-<header><h1>速度 </h1></header>
-
-<section>
-<ul class="summary">
+<ul>
 <li>
 C言語よりは遅くて良いが、ゲームなので高速な処理が求められる。
 
 </li>
-</ul>
-</section>
+</ul></div>
 
-</div>
+<div class="outline-3">
+<h3 id="sec-7">4.3 作業者が簡単に作業結果を確認できる環境</h3>
 
-<div class="slide">
-<header><h1>作業者が簡単に作業結果を確認できる環境 </h1></header>
-
-<section>
-<ul class="summary">
+<ul>
 <li>
 何か編集したら即座にゲームに組込める
 </li>
@@ -562,110 +218,96 @@ C言語よりは遅くて良いが、ゲームなので高速な処理が求め�
 コンパイル環境が不要
 
 </li>
-</ul>
-</section>
-</section>
-
+</ul></div>
 </div>
 
-<div class="slide">
-<header><h1>その前に </h1></header>
-
-<section>
+<div class="outline-2">
+<h2 id="sec-8">5 さくらんぼ亭の結論</h2>
 
 
-</div>
+<ul>
+<li>
+開発環境の刷新が必要
+<ul>
+<li>
+C/C++ベースの開発を維持するのは困難
+</li>
+<li>
+コンパイルが必要な環境は厳しい
 
-<div class="slide">
-<header><h1>Lispって何だっけ？ </h1></header>
+</li>
+</ul></li>
+<li>
+要件を満たす言語/開発環境として挙ったのが
+<ul>
+<li>
+Lisp
 
-<section>
 
-<blockquote>
+</li>
+</ul></li>
+</ul></div>
 
-<p>LISP（リスプ、LISt Processingの略）は、プログラミング言語の一種である。括弧を多用する独特の構文を持つ。
+<div class="outline-2">
+<h2 id="sec-9">6 その前に</h2>
+
+
+
+<div class="outline-3">
+<h3 id="sec-10">6.1 Lispって何だっけ？</h3>
+
+
+<p>
+LISP（リスプ、LISt Processingの略）は、プログラミング言語の一種である。括弧を多用する独特の構文を持つ。
 LISPは比較的容易に実装できるため、非常に多くの方言が存在する。
 関数型言語に分類されるが、ほとんどのLISP方言は、変数への束縛だけでなく、代入やデータ構造の破壊的操作も可能という、手続き型言語の性格ももっている。
 &mdash; wikipediaより
 </p>
-</blockquote>
-
-
-
-
-
-</section>
-
 </div>
 
-<div class="slide">
-<header><h1>Lispの特徴 </h1></header>
+<div class="outline-3">
+<h3 id="sec-11">6.2 Lispの特徴</h3>
 
-<section>
 
-<blockquote>
-
-<p>LISP の特徴として以下のようなものがある。
+<p>
+LISP の特徴として以下のようなものがある。
 </p>
-</blockquote>
-
-
-<ul class="summary">
+<ul>
 <li>
  動的な型付け（値には型情報を持つが変数は型を持たない）
 </li>
 <li>
  前置記法
 
-</li>
-</ul>
-
-<blockquote>
-
-<p>コード自身を第一級（ファーストクラス）オブジェクトとして扱うことができる
-LISPは、全てのプログラミング言語の中でも2番目に古い高級言語であり、現在でも広く使われている。ただし、最古の高級言語FORTRANと同様に、言語仕様は初期と比べて大きく変化している。
-&mdash; wikipediaより
-</p>
-</blockquote>
-
-
-
-</section>
-
-</div>
-
-<div class="slide">
-<header><h1>つまり </h1></header>
-
-<section>
 
 <p>
-カッコいい言語
+コード自身を第一級（ファーストクラス）オブジェクトとして扱うことができる
+LISPは、全てのプログラミング言語の中でも2番目に古い高級言語であり、現在でも広く使われている。ただし、最古の高級言語FORTRANと同様に、言語仕様は初期と比べて大きく変化している。
+</p></li>
+</ul>
+<p>&mdash; wikipediaより
 </p>
-</section>
 
 </div>
 
-<div class="slide">
-<header><h1>良くある誤解 </h1></header>
+<div class="outline-3">
+<h3 id="sec-12">6.3 良くある誤解</h3>
 
-<section>
 
-<ul class="summary">
+<ul>
 <li>
 インタプリタ
 </li>
 <li>
 関数型に記述しないといけない
-<ul class="summary">
+<ul>
 <li>
 代入ない
 </li>
 <li>
 逐次実行がない
 </li>
-</ul>
-</li>
+</ul></li>
 <li>
 型チェックがない    
 </li>
@@ -673,93 +315,65 @@ LISPは、全てのプログラミング言語の中でも2番目に古い高級
 Emacs?
 
 </li>
-</ul>
-</section>
+</ul></div>
 
-</div>
+<div class="outline-3">
+<h3 id="sec-13">6.4 Common Lisp？</h3>
 
-<div class="slide">
-<header><h1>Common Lisp？ </h1></header>
 
-<section>
-
-<ul class="summary">
+<ul>
 <li>
 Common Lispの実際
 
+
 </li>
-</ul>
-</section>
+</ul></div>
+
+<div class="outline-3">
+<h3 id="sec-14">6.5 言語の特徴おさらい</h3>
+
+
+
+</div>
+</div>
+
+<div class="outline-2">
+<h2 id="sec-15">7 Lispでのゲーム開発</h2>
+
+
+<div class="outline-3">
+<h3 id="sec-16">7.1 環境について  </h3>
+
+
+<div class="outline-4">
+<h4 id="sec-17">7.1.1 quicklisp</h4>
 
 </div>
 
-<div class="slide">
-<header><h1>言語の特徴おさらい </h1></header>
-
-<section>
-
-
-</section>
-</section>
+<div class="outline-4">
+<h4 id="sec-18">7.1.2 lispbuilder-sdl</h4>
 
 </div>
 
-<div class="slide">
-<header><h1>Lispでのゲーム開発 </h1></header>
+<div class="outline-4">
+<h4 id="sec-19">7.1.3 emacs + slime</h4>
 
-<section>
-
-</div>
-
-<div class="slide">
-<header><h1>環境について </h1></header>
-
-<section>
 
 </div>
-
-<div class="slide">
-<header><h1>quicklisp </h1></header>
-
-<section>
-</section>
-
 </div>
 
-<div class="slide">
-<header><h1>lispbuilder-sdl </h1></header>
+<div class="outline-3">
+<h3 id="sec-20">7.2 コーディングについて</h3>
 
-<section>
-</section>
-
-</div>
-
-<div class="slide">
-<header><h1>emacs + slime </h1></header>
-
-<section>
-
-</section>
-</section>
-
-</div>
-
-<div class="slide">
-<header><h1>コーディングについて </h1></header>
-
-<section>
 
 <p>
 コーディングがどういった面で楽になるのか？
 </p>
 
-</div>
+<div class="outline-4">
+<h4 id="sec-21">7.2.1 ゲームに使う道具</h4>
 
-<div class="slide">
-<header><h1>ゲームに使う道具 </h1></header>
-
-<section>
-<ul class="summary">
+<ul>
 <li>
 ハッシュ
 </li>
@@ -776,61 +390,46 @@ Common Lispの実際
 キュー
 </li>
 </ul>
-
 <p>言語標準サポート
 </p>
-</section>
-
 </div>
 
-<div class="slide">
-<header><h1>関数がオブジェクト </h1></header>
+<div class="outline-4">
+<h4 id="sec-22">7.2.2 関数がオブジェクト</h4>
 
-<section>
-<ul class="summary">
+<ul>
 <li>
 関数ポインタとさようなら
 </li>
 </ul>
-
 <p>深く考えないで関数が呼べるし、代入できる
-</p><ul class="summary">
+</p><ul>
 <li>
 クロージャ
 
 </li>
-</ul>
-</section>
+</ul></div>
+
+<div class="outline-4">
+<h4 id="sec-23">7.2.3 コンパイル不要(動的ロード)</h4>
+
 
 </div>
-
-<div class="slide">
-<header><h1>コンパイル不要(動的ロード) </h1></header>
-
-<section>
-
-</section>
-</section>
-</section>
-
+</div>
 </div>
 
-<div class="slide">
-<header><h1>Lispの速度について </h1></header>
+<div class="outline-2">
+<h2 id="sec-24">8 Lispの速度について</h2>
 
-<section>
 
-</div>
+<div class="outline-3">
+<h3 id="sec-25">8.1 遅いの？</h3>
 
-<div class="slide">
-<header><h1>遅いの？ </h1></header>
-
-<section>
 
 <p>
 C++のSTLとLispとRubyで比較してみた。
 </p>
-<ul class="summary">
+<ul>
 <li>
 簡単なクラスの生成速度
 </li>
@@ -841,260 +440,47 @@ C++のSTLとLispとRubyで比較してみた。
 関数適用 
 
 </li>
-</ul>
-</section>
-</section>
+</ul></div>
+</div>
+
+<div class="outline-2">
+<h2 id="sec-26">9 他の作業者が簡単に作業結果を確認できる環境</h2>
+
+
+<div class="outline-3">
+<h3 id="sec-27">9.1 複数人開発の課題</h3>
 
 </div>
 
-<div class="slide">
-<header><h1>他の作業者が簡単に作業結果を確認できる環境 </h1></header>
-
-<section>
+<div class="outline-3">
+<h3 id="sec-28">9.2 目指したい流れ</h3>
 
 </div>
 
-<div class="slide">
-<header><h1>複数人開発の課題 </h1></header>
+<div class="outline-3">
+<h3 id="sec-29">9.3 DSL構築</h3>
 
-<section>
-</section>
-
-</div>
-
-<div class="slide">
-<header><h1>目指したい流れ </h1></header>
-
-<section>
-</section>
-
-</div>
-
-<div class="slide">
-<header><h1>DSL構築 </h1></header>
-
-<section>
 <p>LispだとDSLがうんぬん
 </p>
-</section>
-</section>
+</div>
+</div>
+
+<div class="outline-2">
+<h2 id="sec-30">10 苦労する点</h2>
+
 
 </div>
 
-<div class="slide">
-<header><h1>苦労する点 </h1></header>
-
-<section>
-
-</section>
-
-</div>
-
-<div class="slide">
-<header><h1>まとめ </h1></header>
-
-<section>
+<div class="outline-2">
+<h2 id="sec-31">11 まとめ</h2>
 
 
 
-</section>
-</div>
 
 </div>
-<script>
-  (function() {
-    // Since we don't have the fallback of attachEvent and
-    // other IE only stuff we won't try to run JS for IE.
-    // It will run though when using Google Chrome Frame
-    if (document.all) { return; }
-
-    var currentSlideNo;
-    var notesOn = false;
-    var slides = document.getElementsByClassName('slide');
-    var touchStartX = 0;
-
-    // var slide_hash = window.location.hash.replace(/#/, '');
-    // if (slide_hash) {
-    //   for (var i = 0, len = slides.length; i < len; i++) {
-    //     if (slides[i].id == slide_hash) {
-    //       currentSlideNo = i;
-    //       updateSlideClasses();
-    //     }
-    //   }
-    // }
-
-    var spaces = /\s+/, a1 = [""];
-
-    var str2array = function(s) {
-      if (typeof s == "string" || s instanceof String) {
-        if (s.indexOf(" ") < 0) {
-          a1[0] = s;
-          return a1;
-        } else {
-          return s.split(spaces);
-        }
-      }
-      return s;
-    };
-
-    var trim = function(str) {
-      return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-    };
-
-    var addClass = function(node, classStr) {
-      classStr = str2array(classStr);
-      var cls = " " + node.className + " ";
-      for (var i = 0, len = classStr.length, c; i < len; ++i) {
-        c = classStr[i];
-        if (c && cls.indexOf(" " + c + " ") < 0) {
-          cls += c + " ";
-        }
-      }
-      node.className = trim(cls);
-    };
-
-    var removeClass = function(node, classStr) {
-      var cls;
-      if (classStr !== undefined) {
-        classStr = str2array(classStr);
-        cls = " " + node.className + " ";
-        for (var i = 0, len = classStr.length; i < len; ++i) {
-          cls = cls.replace(" " + classStr[i] + " ", " ");
-        }
-        cls = trim(cls);
-      } else {
-        cls = "";
-      }
-      if (node.className != cls) {
-        node.className = cls;
-      }
-    };
-
-    var getSlideEl = function(slideNo) {
-      if (slideNo > 0) {
-        return slides[slideNo - 1];
-      } else {
-        return null;
-      }
-    };
-
-    var getSlideTitle = function(slideNo) {
-      var el = getSlideEl(slideNo);
-
-      if (el) {
-        return el.getElementsByTagName('header')[0].innerHTML;
-      } else {
-        return null;
-      }
-    };
-
-    var changeSlideElClass = function(slideNo, className) {
-      var el = getSlideEl(slideNo);
-
-      if (el) {
-        removeClass(el, 'far-past past current future far-future');
-        addClass(el, className);
-      }
-    };
-
-    var updateSlideClasses = function() {
-      window.location.hash = "slide" + currentSlideNo;
-      changeSlideElClass(currentSlideNo - 2, 'far-past');
-      changeSlideElClass(currentSlideNo - 1, 'past');
-      changeSlideElClass(currentSlideNo, 'current');
-      changeSlideElClass(currentSlideNo + 1, 'future');
-      changeSlideElClass(currentSlideNo + 2, 'far-future');
-    };
-
-    var nextSlide = function() {
-      if (currentSlideNo < slides.length) {
-        currentSlideNo++;
-      }
-
-      updateSlideClasses();
-    };
-
-    var prevSlide = function() {
-      if (currentSlideNo > 1) {
-        currentSlideNo--;
-      }
-      updateSlideClasses();
-    };
-
-    var showNotes = function() {
-      var notes = document.querySelectorAll('.notes');
-      for (var i = 0, len = notes.length; i < len; i++) {
-        notes[i].style.display = (notesOn) ? 'none':'block';
-      }
-      notesOn = (notesOn) ? false:true;
-    };
-
-    var switch3D = function() {
-      if (document.body.className.indexOf('three-d') == -1) {
-        document.getElementsByClassName('presentation')[0].style.webkitPerspective = '1000px';
-        document.body.className += ' three-d';
-      } else {
-        window.setTimeout("document.getElementsByClassName('presentation')[0].style.webkitPerspective = '0';", 2000);
-        document.body.className = document.body.className.replace(/three-d/, '');
-      }
-    };
-
-    var handleBodyKeyDown = function(event) {
-      // console.log(event.keyCode);
-      switch (event.keyCode) {
-        case 37: // left arrow
-          prevSlide();
-          break;
-        case 39: // right arrow
-        // case 32: // space
-          nextSlide();
-          break;
-        case 50: // 2
-          showNotes();
-          break;
-        case 51: // 3
-          switch3D();
-          break;
-      }
-    };
-
-    var addTouchListeners = function() {
-      document.addEventListener('touchstart', function(e) {
-        touchStartX = e.touches[0].pageX;
-      }, false);
-      document.addEventListener('touchend', function(e) {
-        var pixelsMoved = touchStartX - e.changedTouches[0].pageX;
-        var SWIPE_SIZE = 150;
-        if (pixelsMoved > SWIPE_SIZE) {
-          nextSlide();
-        }
-        else if (pixelsMoved < -SWIPE_SIZE) {
-         prevSlide();
-        }
-      }, false);
-    };
-
-    // initialize
-
-    (function() {
-      if (window.location.hash != "") {
-        currentSlideNo = Number(window.location.hash.replace('#slide', ''));
-      } else {
-        currentSlideNo = 1;
-      }
-
-      document.addEventListener('keydown', handleBodyKeyDown, false);
-
-      var els = slides;
-      for (var i = 0, el; el = els[i]; i++) {
-        addClass(el, 'slide far-future');
-      }
-      updateSlideClasses();
-
-      // add support for finger events (filter it by property detection?)
-      addTouchListeners();
-    })();
-  })();
-</script>
-</body>
+<div id="postamble"><p class="author"> Author: さくらんぼ
+<a href="mailto:lambda.sakura@gmail.com">&lt;lambda.sakura@gmail.com&gt;</a>
+</p>
+<p class="date"> Date: 2011/02/12</p>
+</div></body>
 </html>
