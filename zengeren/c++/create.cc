@@ -13,7 +13,7 @@ public:
 };
 
 int main() {
-  printf("%d\n",sizeof(Charactor) * 10000000);
+  //printf("%d\n",sizeof(Charactor) * 10000000);
   for (int i = 0; i < 10000000; ++i) {
     Charactor* a = new Charactor(rand() % 640 , rand() % 480);
     delete a;
